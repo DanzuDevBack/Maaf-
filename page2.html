@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maafin aku?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      font-family: "Poppins", sans-serif;
+      padding: 20px;
+      overflow: hidden;
+    }
+    
+    .container {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+      animation: fadeIn 1s ease-out;
+    }
+    
+    img {
+      width: 200px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    h2 {
+      color: #444;
+      font-size: 26px;
+      font-weight: 500;
+      margin-bottom: 30px;
+    }
+    
+    .buttons-container {
+      position: relative;
+      width: 100%;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .buttons {
+      display: flex;
+      gap: 20px;
+      position: relative;
+    }
+    
+    button {
+      padding: 12px 30px;
+      font-size: 18px;
+      font-weight: 500;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    #yes {
+      background: linear-gradient(to right, #ff8ba7, #ff6384);
+      color: white;
+      z-index: 10;
+    }
+    
+    #yes:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 99, 132, 0.4);
+    }
+    
+    #no {
+      background: linear-gradient(to right, #bdc3c7, #95a5a6);
+      color: white;
+      position: relative;
+    }
+    
+    .floating-hearts {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      color: #ff6384;
+      opacity: 0;
+      animation: floatUp 3s linear forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) rotate(20deg);
+        opacity: 0;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 20px;
+      }
+      
+      h2 {
+        font-size: 22px;
+      }
+      
+      img {
+        width: 160px;
+      }
+      
+      .buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      button {
+        padding: 10px 25px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://media.tenor.com/CKz7zkfWQi0AAAAi/cute-teddy-bear.gif" alt="cute bear gif">
+    <h2>Maafin aku ya? 🥺</h2>
+    <div class="buttons-container">
+      <div class="buttons">
+        <button id="yes" onclick="window.location.href='final.html'">Iya, aku maafin kamu ❤️</button>
+        <button id="no" onmouseover="moveNo()" onclick="moveNo()">Enggak dulu 😜</button>
+      </div>
+      <div class="floating-hearts" id="hearts"></div>
+    </div>
+  </div>
+
+  <script>
+    function moveNo() {
+      const btn = document.getElementById('no');
+      const container = document.querySelector('.buttons-container');
+      const containerRect = container.getBoundingClientRect();
+      
+      // Membuat tombol "Tidak" bergerak secara acak dalam container
+      const maxX = containerRect.width - btn.offsetWidth;
+      const maxY = containerRect.height - btn.offsetHeight;
+      
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+      
+      btn.style.transform = `translate(${x}px, ${y}px)`;
+      
+      // Menambahkan efek hati yang mengambang
+      createHearts();
+    }
+    
+    function createHearts() {
+      const heartsContainer = document.getElementById('hearts');
+      const heartCount = 10;
+      
+      for (let i = 0; i < heartCount; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '🙏';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDelay = Math.random() * 2 + 's';
+        heartsContainer.appendChild(heart);
+        
+        // Menghapus hati setelah animasi selesai
+        setTimeout(() => {
+          heart.remove();
+        }, 3000);
+      }
+    }
+    
+    // Membuat beberapa hati mengambang secara otomatis
+    setInterval(createHearts, 2000);
+  </script>
+</body>
+</html>
